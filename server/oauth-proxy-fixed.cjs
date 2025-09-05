@@ -327,7 +327,8 @@ app.get('/feishu/oauth/callback', (req, res) => {
           <p>State: <span class="code">${state || '无'}</span></p>
           <p>Code: <span class="code">${code.substring(0, 20)}...</span></p>
         </div>
-        <p>正在处理授权...</p>
+        <p>授权处理完成！</p>
+        <p><strong>您现在可以手动关闭此窗口</strong></p>
         <script>
           console.log('OAuth回调页面加载完成');
           console.log('授权码:', '${code}');
@@ -352,12 +353,8 @@ app.get('/feishu/oauth/callback', (req, res) => {
               console.log('授权码已传递给父窗口');
             }
             
-            // 延迟关闭窗口
-            setTimeout(() => {
-              if (window.opener) {
-                window.close();
-              }
-            }, 1000);
+            // 不再自动关闭窗口，让用户手动关闭
+            console.log('授权完成，窗口保持打开状态，用户可手动关闭');
           } catch (error) {
             console.error('存储授权码失败:', error);
           }
