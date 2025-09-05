@@ -1,0 +1,42 @@
+# 依赖目录
+node_modules
+npm-debug.log*
+
+# 开发文件
+.git
+.gitignore
+README.md
+.env.local
+.env.development
+
+# 构建文件
+dist
+build
+
+# 测试文件
+test
+tests
+*.test.js
+*.spec.js
+
+# 日志文件
+logs
+*.log
+
+# 临时文件
+.tmp
+.temp
+
+# IDE文件
+.vscode
+.idea
+*.swp
+*.swo
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 其他不需要的文件
+*.md
+!README.md

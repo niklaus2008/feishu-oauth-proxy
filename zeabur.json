@@ -1,0 +1,39 @@
+{
+  "name": "feishu-oauth-proxy",
+  "description": "飞书OAuth代理服务",
+  "version": "1.0.0",
+  "type": "docker",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "deploy": {
+    "port": 3001,
+    "healthCheck": {
+      "path": "/health",
+      "interval": 30,
+      "timeout": 10,
+      "retries": 3
+    },
+    "scaling": {
+      "min": 1,
+      "max": 3
+    },
+    "resources": {
+      "cpu": "0.1",
+      "memory": "128Mi"
+    }
+  },
+  "environment": {
+    "NODE_ENV": "production",
+    "PORT": "3001"
+  },
+  "domains": {
+    "custom": true,
+    "ssl": true
+  },
+  "monitoring": {
+    "logs": true,
+    "metrics": true
+  }
+}

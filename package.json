@@ -1,0 +1,24 @@
+{
+  "name": "feishu-oauth-proxy",
+  "version": "1.0.0",
+  "description": "飞书OAuth代理服务 - 为Chrome插件提供OAuth代理功能",
+  "main": "server/oauth-proxy-fixed.cjs",
+  "scripts": {
+    "start": "node server/oauth-proxy-fixed.cjs",
+    "dev": "nodemon server/oauth-proxy-fixed.cjs",
+    "deploy": "./deploy-zeabur.sh",
+    "test": "./test-zeabur-deployment.sh"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "node-fetch": "^2.7.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["feishu", "oauth", "proxy", "zeabur"],
+  "author": "Your Name",
+  "license": "MIT"
+}

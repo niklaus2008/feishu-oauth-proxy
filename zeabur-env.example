@@ -1,0 +1,30 @@
+# Zeabur环境变量配置示例
+# 请在Zeabur控制台中设置这些环境变量
+
+# ===================
+# 飞书应用配置
+# ===================
+VITE_FEISHU_APP_ID=cli_a82431fcbfbcd00c
+VITE_FEISHU_APP_SECRET=your_app_secret_here
+
+# ===================
+# OAuth回调URL配置
+# ===================
+# 部署后需要更新为您的Zeabur域名
+VITE_FEISHU_REDIRECT_URI=https://your-app-name.zeabur.app/feishu/oauth/callback
+
+# ===================
+# 代理服务器配置
+# ===================
+VITE_FEISHU_PROXY_BASE_URL=https://your-app-name.zeabur.app
+
+# ===================
+# 系统配置
+# ===================
+NODE_ENV=production
+PORT=3001
+
+# ===================
+# 日志配置
+# ===================
+LOG_LEVEL=info
