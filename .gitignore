@@ -1,6 +1,7 @@
 # 依赖
 node_modules/
 npm-debug.log*
+.specstory/*
 
 # 环境变量
 .env

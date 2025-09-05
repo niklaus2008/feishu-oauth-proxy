@@ -12,7 +12,8 @@ RUN npm ci --only=production && npm cache clean --force
 
 # 复制项目文件
 COPY server/ ./server/
-COPY .env ./
+# 复制环境变量文件（如果存在）
+COPY .env* ./
 
 # 创建非root用户
 RUN addgroup -g 1001 -S nodejs
@@ -27,7 +28,7 @@ EXPOSE 3001
 
 # 健康检查
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:${PORT || 3001}/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
+  CMD node -e "require('http').get('http://localhost:' + (process.env.PORT || 3001) + '/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
 
 # 启动应用
 CMD ["node", "server/oauth-proxy-fixed.cjs"]
