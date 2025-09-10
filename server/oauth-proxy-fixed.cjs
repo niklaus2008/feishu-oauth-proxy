@@ -88,13 +88,16 @@ async function validateUserCredentials(appId, appSecret) {
  */
 app.post('/feishu/oauth/token', async (req, res) => {
   try {
-    const { code, app_id, app_secret } = req.body;
+    const { code, app_id, app_secret, table_url } = req.body;
     
-    console.log('收到令牌交换请求:', { 
-      code: code ? `${code.substring(0, 10)}...` : '未提供',
-      app_id: app_id ? `${app_id.substring(0, 8)}...` : '未提供',
-      has_app_secret: !!app_secret
-    });
+    console.log('=== 收到令牌交换请求 ===');
+    console.log('📋 请求参数详情:');
+    console.log('  🔑 授权码 (code):', code ? `${code.substring(0, 10)}...` : '未提供');
+    console.log('  🆔 应用ID (app_id):', app_id || '未提供');
+    console.log('  🔐 应用密钥 (app_secret):', app_secret ? `${app_secret.substring(0, 8)}...` : '未提供');
+    console.log('  📊 表格链接 (table_url):', table_url || '未提供');
+    console.log('  📝 完整请求体:', JSON.stringify(req.body, null, 2));
+    console.log('========================');
     
     if (!code) {
       return res.status(400).json({
@@ -239,12 +242,15 @@ app.post('/feishu/oauth/token', async (req, res) => {
  */
 app.post('/feishu/validate-credentials', async (req, res) => {
   try {
-    const { app_id, app_secret } = req.body;
+    const { app_id, app_secret, table_url } = req.body;
     
-    console.log('收到凭证验证请求:', { 
-      app_id: app_id ? `${app_id.substring(0, 8)}...` : '未提供',
-      has_app_secret: !!app_secret
-    });
+    console.log('=== 收到凭证验证请求 ===');
+    console.log('📋 请求参数详情:');
+    console.log('  🆔 应用ID (app_id):', app_id || '未提供');
+    console.log('  🔐 应用密钥 (app_secret):', app_secret ? `${app_secret.substring(0, 8)}...` : '未提供');
+    console.log('  📊 表格链接 (table_url):', table_url || '未提供');
+    console.log('  📝 完整请求体:', JSON.stringify(req.body, null, 2));
+    console.log('========================');
     
     if (!app_id || !app_secret) {
       return res.status(400).json({
@@ -292,12 +298,16 @@ app.post('/feishu/validate-credentials', async (req, res) => {
  */
 app.post('/feishu/oauth/refresh', async (req, res) => {
   try {
-    const { refresh_token, app_id, app_secret } = req.body;
+    const { refresh_token, app_id, app_secret, table_url } = req.body;
     
-    console.log('收到令牌刷新请求:', { 
-      app_id: app_id ? `${app_id.substring(0, 8)}...` : '未提供',
-      has_app_secret: !!app_secret
-    });
+    console.log('=== 收到令牌刷新请求 ===');
+    console.log('📋 请求参数详情:');
+    console.log('  🔄 刷新令牌 (refresh_token):', refresh_token ? `${refresh_token.substring(0, 10)}...` : '未提供');
+    console.log('  🆔 应用ID (app_id):', app_id || '未提供');
+    console.log('  🔐 应用密钥 (app_secret):', app_secret ? `${app_secret.substring(0, 8)}...` : '未提供');
+    console.log('  📊 表格链接 (table_url):', table_url || '未提供');
+    console.log('  📝 完整请求体:', JSON.stringify(req.body, null, 2));
+    console.log('========================');
     
     if (!refresh_token) {
       return res.status(400).json({
