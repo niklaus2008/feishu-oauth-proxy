@@ -580,21 +580,35 @@ app.get('/health', (req, res) => {
   });
 });
 
+// 获取服务器地址
+function getServerUrl() {
+  const isProduction = process.env.NODE_ENV === 'production';
+  if (isProduction) {
+    // 生产环境使用环境变量或默认域名
+    return process.env.VITE_FEISHU_PROXY_BASE_URL || 'https://feishu-oauth-proxy.zeabur.app';
+  } else {
+    // 开发环境使用localhost
+    return `http://localhost:${PORT}`;
+  }
+}
+
 // 启动服务器
 app.listen(PORT, () => {
+  const serverUrl = getServerUrl();
   console.log('🚀 OAuth代理服务器启动成功！');
-  console.log('📍 服务地址: http://localhost:' + PORT);
+  console.log('📍 服务地址: ' + serverUrl);
   console.log('🏢 多租户模式: 已启用');
   console.log('🔐 默认飞书应用ID: ' + FEISHU_CONFIG.appId);
   console.log('🔑 默认飞书应用密钥: ' + (FEISHU_CONFIG.appSecret ? '已配置' : '未配置'));
+  console.log('🌍 运行环境: ' + (process.env.NODE_ENV || 'development'));
   console.log('');
   console.log('📋 可用端点:');
-  console.log('  🔍 健康检查: http://localhost:' + PORT + '/health');
-  console.log('  🔄 令牌交换: http://localhost:' + PORT + '/feishu/oauth/token');
-  console.log('  🔄 令牌刷新: http://localhost:' + PORT + '/feishu/oauth/refresh');
-  console.log('  ✅ 凭证验证: http://localhost:' + PORT + '/feishu/validate-credentials');
-  console.log('  👤 用户信息: http://localhost:' + PORT + '/feishu/user/info');
-  console.log('  🔗 OAuth回调: http://localhost:' + PORT + '/feishu/oauth/callback');
+  console.log('  🔍 健康检查: ' + serverUrl + '/health');
+  console.log('  🔄 令牌交换: ' + serverUrl + '/feishu/oauth/token');
+  console.log('  🔄 令牌刷新: ' + serverUrl + '/feishu/oauth/refresh');
+  console.log('  ✅ 凭证验证: ' + serverUrl + '/feishu/validate-credentials');
+  console.log('  👤 用户信息: ' + serverUrl + '/feishu/user/info');
+  console.log('  🔗 OAuth回调: ' + serverUrl + '/feishu/oauth/callback');
   console.log('');
   console.log('💡 多租户使用说明:');
   console.log('  - 支持用户提供自定义 App ID 和 App Secret');
