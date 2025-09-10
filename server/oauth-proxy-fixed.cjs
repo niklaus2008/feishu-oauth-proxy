@@ -120,22 +120,21 @@ app.post('/feishu/oauth/token', async (req, res) => {
       
       clientId = app_id;
       clientSecret = app_secret;
-    } else if (app_id) {
-      // 向后兼容：只提供app_id时，验证是否匹配默认配置
-      if (app_id !== FEISHU_CONFIG.appId) {
-        return res.status(400).json({
-          success: false,
-          error: '应用ID不匹配，请提供完整的App ID和App Secret'
-        });
-      }
-      
+    } else if (app_id && !app_secret) {
+      // 只提供了app_id但没有app_secret，要求提供完整凭证
+      return res.status(400).json({
+        success: false,
+        error: '请提供完整的App ID和App Secret，或使用默认配置（不提供任何凭证）'
+      });
+    } else if (!app_id && !app_secret) {
+      // 向后兼容：没有提供任何凭证时，使用默认配置
       console.log('使用默认配置进行OAuth');
       clientId = FEISHU_CONFIG.appId;
       clientSecret = FEISHU_CONFIG.appSecret;
     } else {
       return res.status(400).json({
         success: false,
-        error: '缺少应用ID参数'
+        error: '参数错误：请提供完整的App ID和App Secret，或使用默认配置'
       });
     }
     
@@ -324,22 +323,21 @@ app.post('/feishu/oauth/refresh', async (req, res) => {
       
       clientId = app_id;
       clientSecret = app_secret;
-    } else if (app_id) {
-      // 向后兼容：只提供app_id时，验证是否匹配默认配置
-      if (app_id !== FEISHU_CONFIG.appId) {
-        return res.status(400).json({
-          success: false,
-          error: '应用ID不匹配，请提供完整的App ID和App Secret'
-        });
-      }
-      
+    } else if (app_id && !app_secret) {
+      // 只提供了app_id但没有app_secret，要求提供完整凭证
+      return res.status(400).json({
+        success: false,
+        error: '请提供完整的App ID和App Secret，或使用默认配置（不提供任何凭证）'
+      });
+    } else if (!app_id && !app_secret) {
+      // 向后兼容：没有提供任何凭证时，使用默认配置
       console.log('使用默认配置刷新令牌');
       clientId = FEISHU_CONFIG.appId;
       clientSecret = FEISHU_CONFIG.appSecret;
     } else {
       return res.status(400).json({
         success: false,
-        error: '缺少应用ID参数'
+        error: '参数错误：请提供完整的App ID和App Secret，或使用默认配置'
       });
     }
     
